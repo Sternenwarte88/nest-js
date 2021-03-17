@@ -1,4 +1,4 @@
-import { Controller, Get, Render, Res } from '@nestjs/common';
+import { Controller, Get, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { DevLabsService } from './dev-labs.service';
 
@@ -8,6 +8,6 @@ export class DevLabsController {
 
   @Get()
   root(@Res() res: Response) {
-    return res.render('index', this.devLabsService.getIndex);
+    return this.devLabsService.getIndex(res);
   }
 }

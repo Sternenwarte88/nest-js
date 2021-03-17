@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import { AppModule } from './app.module';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import ejs from 'ejs';
 
 async function bootstrap() {
