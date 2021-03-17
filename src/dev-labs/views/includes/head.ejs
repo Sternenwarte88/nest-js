@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title><%= pageTitle %></title>
+		<link rel="stylesheet" href="/css/<%= cssName %>.css" />
+		<link rel="stylesheet" href="/css/main.css" />
+	</head>
+	<body>
+		<header>
+			<div class="headBox">
+				<div class="headTitle">
+					<img class="logo" src="./img/logo.png" alt="coding experience logo" />
+					
+				</div>
+
+				<nav class="navBar">
+					<div class="menu" onclick="menuShow()">
+						<%- include('./svg/bars-solid.svg') %>
+					</div>
+				</nav>
+				<div class="modal menu_link" onclick="menuHide()">
+					<div class="app_menu">
+						<h2>Apps</h2>
+						<button
+							class="projects"
+							disabled
+							id="mh"
+							onclick="headBtnHandler(event)"
+						>
+							Money Helper
+						</button>
+					</div>
+					<h2>Links</h2>
+					<button class="navItems" onclick="headBtnHandler(event)" id="blog">
+						Blog
+					</button>
+
+					<button
+						class="navItems"
+						onclick="headBtnHandler(event)"
+						id="main-page"
+					>
+						Coding Experience
+					</button>
+
+					<button
+						class="support"
+						onclick="window.open('http://www.paypal.me/codingexperience', '_blank')"
+						>Support me on PayPal</button
+					>
+				</div>
+			</div>
+		</header>
+	</body></html
+>

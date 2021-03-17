@@ -1,0 +1,131 @@
+<html>
+  <body>
+    <%- include('includes/head.ejs') %>
+    <link
+      rel="stylesheet"
+      href="https://sibforms.com/forms/end-form/build/sib-styles.css"
+    />
+    <main class="main-section">
+      <div class="introText">
+        <h1>
+          Wilkommen bei dem HQ vom Development Laboratories - Coding Experience
+        </h1>
+        <p>
+          Development Laboratories - Coding Experience ist die erste
+          Anlaufstelle für Erfahrungen von Anfang bis Ende. Hier findet man
+          alles von Verzweiflung beim Coden bis hin zu tiefsten Glücksgefühlen,
+          nützliche Dinge sowie auch einige Bugs.
+        </p>
+        <p>
+          Diese Plattform soll keine reine Interessen-Seite werden. Sie soll das
+          verbinden, was vor allem mich, an das Coden bindet. Spaß, Freude,
+          Neugierde, Verzweiflung, Ehrgeiz und den Willen eine einfachere Welt
+          zu schaffen.
+        </p>
+        <p>
+          Das HQ dient hauptsächlich als Richtungsweiser der sub-pages, suchst
+          Du den Blog? Den findest Du hier. Du suchst eine App aus unserem
+          Hause? Auch die findest Du hier. Du suchst die neusten Patch- oder
+          Dev-Logs? Auch die findest Du hier. Daher fühl dich eingeladen und
+          lasse dich von Codes leiten.
+        </p>
+      </div>
+      <div class="preview">
+        <a class="previous" class="pictureSwitch(-1)">
+          <%- include('./includes/svg/hand-point-left-regular.svg') %>
+        </a>
+        <div class="img_gallery">
+          <div class="preview_item">
+            <img class="mh_img" src="img/mh-login.jpeg" alt="moneyhelper_img" />
+            <div class="preview_des">
+              <h3>Money Helper</h3>
+              <p>
+                Die App die dir auf weite Sicht zeigt, wie es finanziell um Dich
+                steht
+              </p>
+            </div>
+          </div>
+          <div class="preview_item">
+            <img
+              class="mh_img"
+              src="img/mh-overview.jpeg"
+              alt="moneyhelper_img"
+            />
+            <div class="preview_des">
+              <h3>Money Helper</h3>
+              <p>
+                Mit einer übersichtlichen Startseite. Alles auf den ersten
+                Blick.
+              </p>
+            </div>
+          </div>
+        </div>
+        <a class="next" onclick="pictureSwitch(+1)">
+          <%- include('./includes/svg/hand-point-right-regular.svg') %>
+        </a>
+      </div>
+      <div class="moreInfo">
+        <h1>More things to discover!</h1>
+        <h2>Blog</h2>
+        <p>
+          Gedanken, Meinungen und Eefahrungen sowie die neusten Dev-Logs findet
+          Ihr auf: <br />
+          <a class="link" href="<%= blogLink %>">>> <%= blogLink %> <<</a>
+        </p>
+        <h2>Behind the scenes</h2>
+        <p>
+          Wer steckt hinter all den Sachen?<br />
+          Findet es heraus auf: <br />
+          <a class="link" href="<%= mainLink %>">>> <%= mainLink %> <<</a>
+        </p>
+      </div>
+
+      <div class="newsLetter">
+        <h1 class="newsletter_title">Bock auf...</h1>
+        <div class="info_grid">
+          <div>
+            <h3>... News?</h3>
+            <p>
+              Die News rund um Coding-Experience. <br />
+              Kein Trash! Reine Experience!
+            </p>
+          </div>
+          <div>
+            <h3>...Dev-Logs?</h3>
+            <p>
+              Die neusten Devs-Logs! <br />
+              Was ist neu? Was passiert?
+            </p>
+          </div>
+          <div>
+            <h3>...Patch-Logs?</h3>
+            <p>
+              Welches Programm/App hat ein Update? <br />
+              Wie ist der Stand der Dinge?
+            </p>
+          </div>
+          <div>
+            <h3>...Codes?</h3>
+            <p>Bock auf neusten Codes?</p>
+          </div>
+        </div>
+        <div class="newsletter_signup">
+          <h2>Dann melde Dich zum Newsletter an</h2>
+          <button type="button" onclick="showNewsletter()" id="newsletterBtn">
+            Zum Newsletter anmelden
+          </button>
+        </div>
+      </div>
+      <div class="newsletter_box">
+        <div>
+          <%- include('./newsletterPopup') %>
+          <div class="modal" onclick="modalHide(this)"></div>
+        </div>
+      </div>
+    </main>
+    <script src="/jsClient/index.js"></script>
+    <script src="https://sibforms.com/forms/end-form/build/main.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?hl=de"></script>
+    <footer><%- include('includes/footer.ejs') %></footer>
+  </body>
+</html>

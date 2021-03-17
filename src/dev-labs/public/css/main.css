@@ -1,0 +1,162 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code&family=Wallpoet&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sedgwick+Ave&display=swap");
+/* ---------------------------------- Head ---------------------------------- */
+html,
+header {
+  box-sizing: border-box; }
+
+body {
+  box-sizing: border-box;
+  margin: 0;
+  background-image: url(/img/wi4015e2b52b2-f5aa-427f-bc08-7d4354ca73311.jpg);
+  background-size: cover;
+  color: #202020; }
+
+.banner_title {
+  text-align: center;
+  margin-left: 5%;
+  margin-right: 5%; }
+
+.headBox {
+  display: flex;
+  background-image: radial-gradient(#ffe4e4 7%, #fa8484, #df6161, #cc4545, #af2424, #991616, #750404); }
+
+.dropdown {
+  background-image: radial-gradient(#ffe4e4 7%, #fa8484, #df6161, #cc4545, #af2424, #991616, #750404);
+  margin: 9px 3% 9px 0;
+  font-family: 'Fira Code', monospace;
+  font-weight: bold;
+  font-size: 1rem;
+  grid-column-start: 2;
+  justify-self: center; }
+
+.headTitle,
+h1 {
+  display: flex;
+  font-family: 'Sedgwick Ave', cursive;
+  font-size: 1.5rem;
+  margin: auto; }
+
+h2,
+h3 {
+  font-size: 1.5rem;
+  font-family: 'Sedgwick Ave', cursive; }
+
+p {
+  margin: 10% 0;
+  padding: 0;
+  display: block; }
+
+.nav_symbol {
+  width: 10%;
+  margin: 20px; }
+
+.menu {
+  cursor: pointer;
+  width: 85%;
+  align-self: center; }
+
+.menu_link {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: -100%;
+  transition: top 1s ease-in-out; }
+
+.logo {
+  width: 57%; }
+
+.navBar {
+  width: 25%;
+  margin: 3%;
+  display: flex; }
+
+.app_menu {
+  width: 100%;
+  display: contents; }
+
+.app_label {
+  display: block; }
+
+.menu_link > button,
+.app_menu > button {
+  width: 70%; }
+
+button {
+  padding: 10px;
+  margin: 1rem;
+  height: max-content;
+  font-family: 'Fira Code', monospace;
+  font-weight: bold;
+  font-size: 1rem;
+  background-image: radial-gradient(#ffe4e4 7%, #fa8484, #df6161, #cc4545, #af2424, #991616, #750404); }
+  button:hover {
+    cursor: pointer; }
+
+/* --------------------------------- Footer --------------------------------- */
+.footer {
+  background-image: radial-gradient(#ffe4e4 7%, #fa8484, #df6161, #cc4545, #af2424, #991616, #750404); }
+
+.footer_grid {
+  margin: 2% 5% 0;
+  display: grid;
+  grid-template-columns: repeat(2, 19% 81%);
+  align-items: center; }
+
+.social {
+  width: 75%;
+  color: #202020; }
+
+.copyright {
+  justify-self: end;
+  font-family: 'Sedgwick Ave', cursive; }
+
+@media (min-width: 720px) {
+  .logo {
+    width: 37%; }
+
+  .navBar {
+    width: 15%; } }
+@media (min-width: 1280px) {
+  .banner_title {
+    margin-left: auto;
+    margin-right: auto; }
+
+  .menu {
+    width: 60%; }
+
+  .social {
+    width: 50%; } }
+@media (min-width: 1800px) {
+  /* ---------------------------------- Head ---------------------------------- */
+  .nav_symbol {
+    width: 10%;
+    margin: 20px; }
+
+  .logo {
+    margin: auto; }
+
+  .menu {
+    width: 40%; }
+
+  .navBar {
+    position: absolute;
+    right: 0%; }
+
+  .menu_link > button,
+  .app_menu > button {
+    width: 40%; }
+
+  /* --------------------------------- Footer --------------------------------- */
+  .social {
+    width: 30%;
+    color: #202020; } }
+/* --------------------------- Javascript Klassen --------------------------- */
+.flex {
+  top: 0%; }
+
+/*# sourceMappingURL=main.css.map */
