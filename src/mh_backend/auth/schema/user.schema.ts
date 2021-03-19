@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { FinanceType } from '../../finance/schema/finance.schema';
 
 export type UserDocument = Document & User;
 
@@ -11,7 +10,7 @@ export class User {
   @Prop()
   password: string;
   @Prop({ type: Array })
-  finance: FinanceType;
+  finance: { income: Record<string>; bills: Record<string> };
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

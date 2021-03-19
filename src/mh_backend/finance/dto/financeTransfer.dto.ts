@@ -1,8 +1,10 @@
-import { financeType } from 'src/mh_backend/finance/enums/financeType.enums';
+import { ObjectId } from 'mongoose';
+import { possibleFinanceType } from 'src/mh_backend/finance/enums/financeType.enums';
 
-export interface financeTransferDto {
-  financeType: financeType;
+export interface FinanceTransferDto {
+  _id: ObjectId;
+  financeType: possibleFinanceType;
   description: string;
-  value: number;
+  amount: number;
   date: Date;
 }
