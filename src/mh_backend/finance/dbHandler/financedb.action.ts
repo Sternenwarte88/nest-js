@@ -8,7 +8,7 @@ export const insertFinanceData = async (
   userModel: Model<UserDocument>,
   financeTransferDto: FinanceTransferDto,
 ) => {
-  const amount = financeTransferDto.amount;
+  const amount = parseFloat(financeTransferDto.amount);
   const description = financeTransferDto.description.toString();
   const date = new Date();
   const financeType = validateFinanceType(financeTransferDto);
