@@ -1,19 +1,24 @@
-import { FinanceTransferDto } from '../dto/financeTransfer.dto';
+import { BaseFinanceDto, FinanceTransferDto } from '../dto/financeTransfer.dto';
 
 export enum possibleFinanceType {
   income = 'income',
   bills = 'bills',
+  all = 'all',
 }
 
-export function validateFinanceType(financeTransferDto: FinanceTransferDto) {
+export function validateFinanceType(dto: FinanceTransferDto | BaseFinanceDto) {
   let financeType;
-  switch (financeTransferDto.financeType) {
+  switch (dto.financeType) {
     case 'income':
       financeType = 'finance.income';
       break;
 
     case 'bills':
       financeType = 'finance.bills';
+      break;
+
+    case 'all':
+      financeType = 'finance';
       break;
 
     default:

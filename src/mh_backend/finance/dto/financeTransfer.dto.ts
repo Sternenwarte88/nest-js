@@ -1,10 +1,8 @@
+import { BadRequestException } from '@nestjs/common';
 import {
-  IsAlphanumeric,
-  IsDate,
   IsEnum,
   IsMongoId,
   IsNotEmpty,
-  IsNumber,
   IsNumberString,
   IsString,
   MaxLength,
@@ -13,15 +11,20 @@ import {
 import { ObjectId } from 'mongoose';
 import { possibleFinanceType } from 'src/mh_backend/finance/enums/financeType.enums';
 
-export class FinanceTransferDto {
+export class BaseFinanceDto {
   @IsMongoId()
-  @IsNotEmpty()
+  @IsNotEmpty({
+    message: () => {
+      throw new BadRequestException();
+    },
+  })
   _id: ObjectId;
 
   @IsEnum(possibleFinanceType)
   @IsNotEmpty()
   financeType: possibleFinanceType;
-
+}
+export class FinanceTransferDto extends BaseFinanceDto {
   @IsString()
   @MinLength(12)
   @MaxLength(50)

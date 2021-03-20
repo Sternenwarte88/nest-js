@@ -11,12 +11,11 @@ export class AuthService {
   async createUser(userSchemaDto: UserSchemaDto) {
     const createdUser = new this.userModel(userSchemaDto);
     await createdUser.save();
-    console.log(createdUser);
   }
 
   async loginUser(userSchemaDto: UserSchemaDto) {
-    const loginUser = await this.userModel.findOne(userSchemaDto);
-    console.log(loginUser);
-    return loginUser;
+    const response = await this.userModel.findOne(userSchemaDto);
+    console.log(response);
+    return response;
   }
 }

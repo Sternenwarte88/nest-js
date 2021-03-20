@@ -1,8 +1,19 @@
 import { ObjectId } from 'bson';
 import { Model } from 'mongoose';
 import { UserDocument } from 'src/mh_backend/auth/schema/user.schema';
-import { FinanceTransferDto } from '../dto/financeTransfer.dto';
+import { BaseFinanceDto, FinanceTransferDto } from '../dto/financeTransfer.dto';
 import { validateFinanceType } from '../enums/financeType.enums';
+
+export const getFinanceData = async (
+  userModel: Model<UserDocument>,
+  baseFinanceDto: BaseFinanceDto,
+) => {
+  const id = baseFinanceDto._id;
+  const financeType = validateFinanceType(baseFinanceDto);
+
+  const response = await userModel.findOne({ _id: id }, [financeType]);
+  return response;
+};
 
 export const insertFinanceData = async (
   userModel: Model<UserDocument>,
@@ -15,7 +26,7 @@ export const insertFinanceData = async (
   const id = financeTransferDto._id;
   userModel = userModel;
 
-  const result = await userModel.updateOne(
+  const response = await userModel.updateOne(
     { _id: id },
     {
       $push: {
@@ -30,5 +41,21 @@ export const insertFinanceData = async (
     { upsert: true },
   );
 
-  return result;
+  return response;
+};
+
+export const deleteFinanceData = async (
+  baseFinanceDto: BaseFinanceDto,
+  userModel: Model<UserDocument>,
+) => {
+  const itemID = baseFinanceDto._id;
+  const financeType = validateFinanceType(baseFinanceDto);
+
+  const response = await userModel.updateOne(
+    {},
+    {
+      $pull: { [financeType]: { _id: new ObjectId(`${itemID}`) } },
+    },
+  );
+  return response;
 };

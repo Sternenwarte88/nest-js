@@ -13,7 +13,7 @@ export class Finance {
   @Prop()
   description: string;
   @Prop()
-  value: number;
+  amount: number;
   @Prop()
   date: Date;
 }

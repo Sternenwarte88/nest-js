@@ -1,4 +1,10 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  ImATeapotException,
+  Post,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UserSchemaDto } from './dto/user-schema.dto';
 
@@ -8,12 +14,16 @@ export class AuthController {
 
   @Post('signup')
   async signUp(@Body() userSchemaDto: UserSchemaDto) {
-    await this.authService.createUser(userSchemaDto);
+    const response = await this.authService.createUser(userSchemaDto);
+    return response;
   }
 
   @Post('login')
   async logIn(@Body() userSchemaDto: UserSchemaDto) {
-    const loggedInUser = await this.authService.loginUser(userSchemaDto);
-    return loggedInUser;
+    const response = await this.authService.loginUser(userSchemaDto);
+    if (!response) {
+      throw new ImATeapotException();
+    }
+    return response;
   }
 }
