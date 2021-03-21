@@ -15,6 +15,8 @@ export class User {
     income: FinanceTransferDto;
     bills: FinanceTransferDto;
   };
+  @Prop()
+  salt: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

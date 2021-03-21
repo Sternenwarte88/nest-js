@@ -20,7 +20,6 @@ export class AuthService {
   }
 
   async loginUser(userSchemaDto: UserSchemaDto) {
-    const response = await this.userModel.findOne(userSchemaDto);
     const { email, password } = userSchemaDto;
     const validatedUser = await this.localStrategie.validate(email, password);
     return validatedUser;

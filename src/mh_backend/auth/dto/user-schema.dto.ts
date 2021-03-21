@@ -18,4 +18,5 @@ export class UserSchemaDto {
     message: 'password too weak',
   })
   password: string;
+  salt?: string;
 }
