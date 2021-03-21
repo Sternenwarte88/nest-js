@@ -6,7 +6,7 @@ import {
   deleteFinanceData,
   getFinanceData,
   insertFinanceData,
-} from './dbHandler/financedb.action';
+} from './financeDbActions/financeDb.action';
 import { BaseFinanceDto, FinanceTransferDto } from './dto/financeTransfer.dto';
 
 @Injectable()

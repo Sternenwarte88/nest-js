@@ -1,4 +1,3 @@
-import { BadRequestException } from '@nestjs/common';
 import {
   IsEmail,
   IsNotEmpty,
@@ -11,7 +10,7 @@ export class UserSchemaDto {
   @IsEmail()
   @IsNotEmpty()
   @MinLength(4)
-  name: string;
+  email: string;
   @IsNotEmpty()
   @MinLength(12)
   @MaxLength(24)

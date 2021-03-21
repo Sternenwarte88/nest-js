@@ -2,6 +2,7 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/wusabinga/nest-js)
 ![GitHub repo size](https://img.shields.io/github/repo-size/Wusabinga/nest-js)
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/Wusabinga/nest-js)
+[![time tracker](https://wakatime.com/badge/github/Wusabinga/nest-js.svg)](https://wakatime.com/badge/github/Wusabinga/nest-js)
 
 # Money Helper backend solution
 
@@ -46,7 +47,6 @@ After that, just `yarn start` or `npm start` and this will bring up this server.
 <!-- ## Scope of functionalities -->
 
 <!-- ## Examples of use -->
-
 
 <!-- ## Sources -->
 

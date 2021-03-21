@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/authGuard/jwt.guard';
 import { BaseFinanceDto, FinanceTransferDto } from './dto/financeTransfer.dto';
 import { FinanceService } from './finance.service';
 
@@ -6,12 +7,13 @@ import { FinanceService } from './finance.service';
 export class FinanceController {
   constructor(private financeService: FinanceService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get('getFinance')
   async getFinanceData(@Body() baseFinanceDto: BaseFinanceDto) {
     const response = await this.financeService.getFinanceData(baseFinanceDto);
     return response;
   }
-
+  @UseGuards(JwtAuthGuard)
   @Post('insertFinance')
   async insertFinanceData(@Body() financeTransferDto: FinanceTransferDto) {
     const response = await this.financeService.insertFinanceData(
@@ -19,7 +21,7 @@ export class FinanceController {
     );
     return response;
   }
-
+  @UseGuards(JwtAuthGuard)
   @Delete('deleteFinanceData')
   async deleteFinanceData(@Body() baseFinanceDto: BaseFinanceDto) {
     const response = await this.financeService.deleteFinanceData(
