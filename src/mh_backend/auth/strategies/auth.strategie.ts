@@ -20,7 +20,7 @@ export class LocalStrategie extends PassportStrategy(Strategy) {
   private validateUser = async (email: string, pass: string) => {
     const user = await this.userModel.findOne({ email: email });
     console.log(user);
-    const hashedPassword = await this.authDbActions.hashPasswort(
+    const hashedPassword = await this.authDbActions.hashPassword(
       pass,
       user.salt,
     );

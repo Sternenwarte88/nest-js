@@ -18,7 +18,6 @@ export class AuthDbActions {
     );
     userSchemaDto.password = hashedPassword;
     const findDuplicate = await this.userModel.findOne(userSchemaDto);
-    console.log(userSchemaDto);
 
     if (!findDuplicate) {
       result = await new this.userModel(userSchemaDto);
@@ -29,7 +28,12 @@ export class AuthDbActions {
     return result;
   };
 
-  hashPasswort(password: string, salt: string) {
-    return bcrypt.hash(password, salt);
+  async hashPassword(password: string, salt: string) {
+    try {
+      const hashedPassword = await bcrypt.hash(password, salt);
+      return hashedPassword;
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }
