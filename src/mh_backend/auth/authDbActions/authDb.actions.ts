@@ -1,4 +1,8 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  ImATeapotException,
+  Injectable,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserSchemaDto } from '../dto/user-schema.dto';
@@ -26,6 +30,14 @@ export class AuthDbActions {
       throw new ConflictException();
     }
     return result;
+  };
+
+  findUser = async (UserSchemaDto) => {
+    try {
+      await this.userModel.findOne(UserSchemaDto);
+    } catch {
+      throw new ImATeapotException();
+    }
   };
 
   async hashPassword(password: string, salt: string) {
