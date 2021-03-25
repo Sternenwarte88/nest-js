@@ -13,7 +13,7 @@ import * as bcrypt from 'bcrypt';
 export class AuthDbActions {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  createUser = async (userSchemaDto: UserSchemaDto) => {
+  async createUser(userSchemaDto: UserSchemaDto) {
     let result;
     userSchemaDto.salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(
@@ -21,31 +21,33 @@ export class AuthDbActions {
       userSchemaDto.salt,
     );
     userSchemaDto.password = hashedPassword;
-    const findDuplicate = await this.userModel.findOne(userSchemaDto);
+    const findDuplicate = await this.findUser(UserSchemaDto);
 
     if (!findDuplicate) {
       result = await new this.userModel(userSchemaDto);
-      result.save();
+      await result.save();
     } else {
       throw new ConflictException();
     }
-    return result;
-  };
+    return await result;
+  }
 
-  findUser = async (UserSchemaDto) => {
+  async findUser(UserSchemaDto) {
+    let foundUser;
     try {
-      await this.userModel.findOne(UserSchemaDto);
+      foundUser = await this.userModel.findOne(UserSchemaDto);
+      return await foundUser;
     } catch {
       throw new ImATeapotException();
     }
-  };
+  }
 
-  async hashPassword(password: string, salt: string) {
+  hashPassword = async (password: string, salt: string) => {
     try {
       const hashedPassword = await bcrypt.hash(password, salt);
       return hashedPassword;
     } catch (error) {
       throw new Error(error);
     }
-  }
+  };
 }

@@ -8,8 +8,8 @@ import { AuthController } from '../../../auth/auth.controller';
 import { LocalStrategie } from '../../../auth/strategies/auth.strategie';
 import { JwtStrategy } from '../../../auth/strategies/jwt.strategy';
 import { JwtModule } from '@nestjs/jwt';
+import { UserSchemaDto } from 'src/mh_backend/auth/dto/user-schema.dto';
 
-const mockAuthDb = () => ({});
 describe('Authentification Database actions testsuite', () => {
   let authDbActions: AuthDbActions;
 
@@ -58,7 +58,35 @@ describe('Authentification Database actions testsuite', () => {
   });
   test('findUser should throw exception', async () => {
     expect(async () => {
-      await authDbActions.findUser(null);
+      await authDbActions.findUser('');
     }).rejects.toThrowError();
+  });
+  test('createUser should resolve', async () => {
+    const mockUser: UserSchemaDto = {
+      email: 'blabla',
+      password: 'blabla',
+    };
+
+    jest
+      .spyOn(authDbActions, 'findUser')
+      .mockImplementation((mockUser) => Promise.resolve(''));
+
+    expect(async () => {
+      await authDbActions.createUser(mockUser);
+    }).resolves;
+  });
+  test('createUser should fail', async () => {
+    const mockUser: UserSchemaDto = {
+      email: 'blabla',
+      password: 'blabla',
+    };
+
+    jest
+      .spyOn(authDbActions, 'findUser')
+      .mockImplementation((mockUser) => Promise.resolve('found User'));
+
+    expect(async () => {
+      await authDbActions.createUser(mockUser);
+    }).rejects.toThrow();
   });
 });
