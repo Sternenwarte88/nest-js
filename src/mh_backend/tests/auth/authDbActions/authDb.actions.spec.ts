@@ -9,10 +9,15 @@ import { LocalStrategie } from '../../../auth/strategies/auth.strategie';
 import { JwtStrategy } from '../../../auth/strategies/jwt.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { UserSchemaDto } from 'src/mh_backend/auth/dto/user-schema.dto';
+import { ConflictException } from '@nestjs/common';
 
 describe('Authentification Database actions testsuite', () => {
   let authDbActions: AuthDbActions;
 
+  const mockUser: UserSchemaDto = {
+    email: 'blabla',
+    password: 'blabla',
+  };
   beforeEach(async () => {
     const mockModule = await Test.createTestingModule({
       imports: [
@@ -33,60 +38,53 @@ describe('Authentification Database actions testsuite', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
+
   test('hashed Password should be a truthy', async () => {
-    const testData = 'test';
     const testsalt = await bcrypt.genSalt();
-    const testResult = await authDbActions.hashPassword(testData, testsalt);
+    const testResult = await authDbActions.hashPassword(
+      mockUser.password,
+      testsalt,
+    );
 
     expect(testResult).toBeTruthy();
   });
+
   test('hashed Password should be falsy', async () => {
-    const testData = 'test';
     const testsalt = undefined;
 
     await expect(
-      authDbActions.hashPassword(testData, testsalt),
+      authDbActions.hashPassword(mockUser.password, testsalt),
     ).rejects.toThrowError();
   });
+
   test('test foundUser should be falsy', async () => {
-    const mockUser = {
-      email: 'blabla',
-      password: 'blabla',
-    };
     const foundUser = await authDbActions.findUser(mockUser);
-    expect(foundUser).toBeFalsy();
+    await expect(foundUser).toBeFalsy();
   });
+
   test('findUser should throw exception', async () => {
     expect(async () => {
       await authDbActions.findUser('');
     }).rejects.toThrowError();
   });
-  test('createUser should resolve', async () => {
-    const mockUser: UserSchemaDto = {
-      email: 'blabla',
-      password: 'blabla',
-    };
 
-    jest
+  test('createUser should resolve', async () => {
+    await jest
       .spyOn(authDbActions, 'findUser')
       .mockImplementation((mockUser) => Promise.resolve(''));
 
-    expect(async () => {
-      await authDbActions.createUser(mockUser);
-    }).resolves;
+    const result = await authDbActions.createUser(mockUser);
+
+    await expect(result.email).toContain(mockUser.email);
   });
+
   test('createUser should fail', async () => {
-    const mockUser: UserSchemaDto = {
-      email: 'blabla',
-      password: 'blabla',
-    };
-
-    jest
+    await jest
       .spyOn(authDbActions, 'findUser')
-      .mockImplementation((mockUser) => Promise.resolve('found User'));
+      .mockImplementation(async (mockUser) => await Promise.resolve(mockUser));
 
-    expect(async () => {
+    await expect(async () => {
       await authDbActions.createUser(mockUser);
-    }).rejects.toThrow();
+    }).rejects.toThrow(ConflictException);
   });
 });
