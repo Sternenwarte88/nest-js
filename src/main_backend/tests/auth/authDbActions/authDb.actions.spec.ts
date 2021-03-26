@@ -8,7 +8,7 @@ import { AuthController } from '../../../auth/auth.controller';
 import { AuthStrategy } from '../../../auth/strategies/auth.strategie';
 import { JwtStrategy } from '../../../auth/strategies/jwt.strategy';
 import { JwtModule } from '@nestjs/jwt';
-import { UserSchemaDto } from 'src/mh_backend/auth/dto/user-schema.dto';
+import { UserSchemaDto } from '../../../auth/dto/user-schema.dto';
 import { ConflictException } from '@nestjs/common';
 
 describe('Authentification Database actions testsuite', () => {
