@@ -15,6 +15,13 @@ export class User {
     income: FinanceTransferDto;
     bills: FinanceTransferDto;
   };
+  @Prop({ type: Array })
+  tasks: {
+    toDo;
+    piw_ToDo;
+    finished_ToDo;
+    canceled_ToDos;
+  };
   @Prop()
   salt: string;
 }
