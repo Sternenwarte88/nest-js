@@ -5,7 +5,7 @@ import { AuthService } from '../../../auth/auth.service';
 import { Test } from '@nestjs/testing';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthController } from '../../../auth/auth.controller';
-import { LocalStrategie } from '../../../auth/strategies/auth.strategie';
+import { AuthStrategy } from '../../../auth/strategies/auth.strategie';
 import { JwtStrategy } from '../../../auth/strategies/jwt.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { UserSchemaDto } from 'src/mh_backend/auth/dto/user-schema.dto';
@@ -30,7 +30,7 @@ describe('Authentification Database actions testsuite', () => {
       ],
 
       controllers: [AuthController],
-      providers: [AuthService, AuthDbActions, LocalStrategie, JwtStrategy],
+      providers: [AuthService, AuthDbActions, AuthStrategy, JwtStrategy],
     }).compile();
     authDbActions = await mockModule.get<AuthDbActions>(AuthDbActions);
   });

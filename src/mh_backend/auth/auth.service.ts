@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { LocalStrategie } from './strategies/auth.strategie';
+import { AuthStrategy } from './strategies/auth.strategie';
 import { AuthDbActions } from './authDbActions/authDb.actions';
 import { UserSchemaDto } from './dto/user-schema.dto';
 import { User, UserDocument } from './schema/user.schema';
@@ -11,7 +11,7 @@ export class AuthService {
   constructor(
     @InjectModel(User.name) private userModel: Model<UserDocument>,
     @Inject(AuthDbActions) private authDbActions: AuthDbActions,
-    @Inject(LocalStrategie) private localStrategie: LocalStrategie,
+    @Inject(AuthStrategy) private AuthStrategy: AuthStrategy,
   ) {}
 
   async createUser(userSchemaDto: UserSchemaDto) {
@@ -21,7 +21,7 @@ export class AuthService {
 
   async loginUser(userSchemaDto: UserSchemaDto) {
     const { email, password } = userSchemaDto;
-    const validatedUser = await this.localStrategie.validate(email, password);
+    const validatedUser = await this.AuthStrategy.validate(email, password);
     return validatedUser;
   }
 }

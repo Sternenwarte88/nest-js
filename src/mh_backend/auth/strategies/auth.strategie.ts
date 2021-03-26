@@ -8,7 +8,7 @@ import { AuthDbActions } from '../authDbActions/authDb.actions';
 import { User, UserDocument } from '../schema/user.schema';
 
 @Injectable()
-export class LocalStrategie extends PassportStrategy(Strategy) {
+export class AuthStrategy extends PassportStrategy(Strategy) {
   constructor(
     @Inject(AuthDbActions) private authDbActions: AuthDbActions,
     @InjectModel(User.name) private userModel: Model<UserDocument>,
@@ -17,9 +17,8 @@ export class LocalStrategie extends PassportStrategy(Strategy) {
     super({ usernameField: 'email', passwordField: 'password' });
   }
 
-  private validateUser = async (email: string, pass: string) => {
+  validateUser = async (email: string, pass: string) => {
     const user = await this.userModel.findOne({ email: email });
-    console.log(user);
     const hashedPassword = await this.authDbActions.hashPassword(
       pass,
       user.salt,
