@@ -21,7 +21,7 @@ export class AuthDbActions {
       userSchemaDto.salt,
     );
     userSchemaDto.password = hashedPassword;
-    const findDuplicate = await this.findUser(UserSchemaDto);
+    const findDuplicate = await this.findUser(userSchemaDto);
 
     if (!findDuplicate) {
       result = await new this.userModel(userSchemaDto);
@@ -32,10 +32,10 @@ export class AuthDbActions {
     return await result;
   }
 
-  async findUser(UserSchemaDto) {
+  async findUser(userSchemaDto) {
     let foundUser;
     try {
-      foundUser = await this.userModel.findOne(UserSchemaDto);
+      foundUser = await this.userModel.findOne(userSchemaDto);
       return await foundUser;
     } catch {
       throw new ImATeapotException();

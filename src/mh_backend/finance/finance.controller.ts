@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Post, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from '../auth/authGuard/jwt.guard';
+import { JwtAuthGuard } from '../../main_backend/auth/authGuard/jwt.guard';
 import { BaseFinanceDto, FinanceTransferDto } from './dto/financeTransfer.dto';
 import { FinanceService } from './finance.service';
 

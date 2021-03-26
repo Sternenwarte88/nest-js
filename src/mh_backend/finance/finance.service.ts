@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User, UserDocument } from '../auth/schema/user.schema';
+import { User, UserDocument } from '../../main_backend/auth/schema/user.schema';
 import {
   deleteFinanceData,
   getFinanceData,

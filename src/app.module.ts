@@ -1,5 +1,5 @@
 import { FinanceModule } from './mh_backend/finance/finance.module';
-import { AuthModule } from './mh_backend/auth/auth.module';
+import { AuthModule } from './main_backend/auth/auth.module';
 import { Module } from '@nestjs/common';
 import { DevLabsController } from './dev-labs/dev-labs.controller';
 import { DevLabsService } from './dev-labs/dev-labs.service';

@@ -1,6 +1,6 @@
 import { ObjectId } from 'bson';
 import { Model } from 'mongoose';
-import { UserDocument } from 'src/mh_backend/auth/schema/user.schema';
+import { UserDocument } from '../../../main_backend/auth/schema/user.schema';
 import { BaseFinanceDto, FinanceTransferDto } from '../dto/financeTransfer.dto';
 import { validateFinanceType } from '../enums/financeType.enums';
 
@@ -24,7 +24,6 @@ export const insertFinanceData = async (
   const date = new Date();
   const financeType = validateFinanceType(financeTransferDto);
   const id = financeTransferDto._id;
-  userModel = userModel;
 
   const response = await userModel.updateOne(
     { _id: id },
