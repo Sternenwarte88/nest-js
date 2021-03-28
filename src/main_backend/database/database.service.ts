@@ -4,15 +4,14 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { UserSchemaDto } from '../dto/user-schema.dto';
-import { User, UserDocument } from '../schema/user.schema';
 import * as bcrypt from 'bcrypt';
+import { Model } from 'mongoose';
+import { UserSchemaDto } from '../auth/dto/user-schema.dto';
+import { User, UserDocument } from '../auth/schema/user.schema';
 
 @Injectable()
-export class AuthDbActions {
+export class DatabaseService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
-
   async createUser(userSchemaDto: UserSchemaDto) {
     let result;
     userSchemaDto.salt = await bcrypt.genSalt();
@@ -31,7 +30,6 @@ export class AuthDbActions {
     }
     return await result;
   }
-
   async findUser(userSchemaDto) {
     let foundUser;
     try {
@@ -41,7 +39,6 @@ export class AuthDbActions {
       throw new ImATeapotException();
     }
   }
-
   hashPassword = async (password: string, salt: string) => {
     try {
       const hashedPassword = await bcrypt.hash(password, salt);

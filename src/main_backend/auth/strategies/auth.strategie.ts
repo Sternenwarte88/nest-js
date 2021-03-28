@@ -4,13 +4,13 @@ import { InjectModel } from '@nestjs/mongoose';
 import { PassportStrategy } from '@nestjs/passport';
 import { Model } from 'mongoose';
 import { Strategy } from 'passport-local';
-import { AuthDbActions } from '../authDbActions/authDb.actions';
+import { DatabaseService } from '../../database/database.service';
 import { User, UserDocument } from '../schema/user.schema';
 
 @Injectable()
 export class AuthStrategy extends PassportStrategy(Strategy) {
   constructor(
-    @Inject(AuthDbActions) private authDbActions: AuthDbActions,
+    @Inject(DatabaseService) private databaseService: DatabaseService,
     @InjectModel(User.name) private userModel: Model<UserDocument>,
     private JWTService: JwtService,
   ) {
@@ -19,7 +19,7 @@ export class AuthStrategy extends PassportStrategy(Strategy) {
 
   validateUser = async (email: string, pass: string) => {
     const user = await this.userModel.findOne({ email: email });
-    const hashedPassword = await this.authDbActions.hashPassword(
+    const hashedPassword = await this.databaseService.hashPassword(
       pass,
       user.salt,
     );
