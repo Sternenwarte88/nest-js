@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller, PreconditionFailedException } from '@nestjs/common';
 import { UserSchemaDto } from '../main_backend/auth/dto/user-schema.dto';
 import { DatabaseService } from './database.service';
 import { CreateDatabaseDto } from './dto/create-database.dto';
@@ -9,19 +9,23 @@ export class DatabaseController {
   constructor(private readonly databaseService: DatabaseService) {}
   private readonly userSchemaDto: UserSchemaDto;
 
-  create(createDatabaseDto: CreateDatabaseDto) {
-    return this.databaseService.create(createDatabaseDto);
+  async create(createDatabaseDto: CreateDatabaseDto) {
+    return await this.databaseService.create(createDatabaseDto);
   }
 
-  findOne(userSchemaDto) {
-    return this.databaseService.findOne(userSchemaDto);
+  async findOne(userSchemaDto) {
+    try {
+      return await this.databaseService.findOne(userSchemaDto);
+    } catch (err) {
+      throw new PreconditionFailedException();
+    }
   }
 
-  update(id: string, updateDatabaseDto: UpdateDatabaseDto) {
-    return this.databaseService.update(updateDatabaseDto);
+  async update(id: string, updateDatabaseDto: UpdateDatabaseDto) {
+    return await this.databaseService.update(updateDatabaseDto);
   }
 
-  remove(id: string) {
-    return this.databaseService.remove(+id);
+  async remove(id: string) {
+    return await this.databaseService.remove(+id);
   }
 }

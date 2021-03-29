@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserSchemaDto } from '../main_backend/auth/dto/user-schema.dto';
@@ -9,9 +13,13 @@ import { User, UserDocument } from './entities/database.entity';
 export class DatabaseService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
   async create(userSchemaDto: UserSchemaDto) {
-    const user = await new this.userModel(userSchemaDto);
-    await user.save();
-    return user;
+    try {
+      const user = await new this.userModel(userSchemaDto);
+      await user.save();
+      return await user;
+    } catch (err) {
+      throw new ConflictException();
+    }
   }
 
   findAll() {
@@ -19,8 +27,14 @@ export class DatabaseService {
   }
 
   async findOne(userSchemaDto: UserSchemaDto) {
-    const user = await this.userModel.findOne(userSchemaDto);
-    return user;
+    try {
+      const foundUser = await this.userModel.findOne({
+        userSchemaDto,
+      });
+      return await foundUser;
+    } catch (err) {
+      throw new BadRequestException();
+    }
   }
 
   async update(updateDatabaseDto: UpdateDatabaseDto) {
