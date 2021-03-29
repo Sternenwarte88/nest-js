@@ -2,10 +2,13 @@ import {
   Body,
   Controller,
   ImATeapotException,
+  Patch,
   Post,
   UseGuards,
 } from '@nestjs/common';
+import { ObjectId } from 'mongoose';
 import { AuthService } from './auth.service';
+import { JwtAuthGuard } from './authGuard/jwt.guard';
 import { LocalAuthGuard } from './authGuard/local.guard';
 import { UserSchemaDto } from './dto/user-schema.dto';
 
@@ -27,6 +30,13 @@ export class AuthController {
     } catch (err) {
       throw new ImATeapotException();
     }
+    return response;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch('patch')
+  async updateUser(@Body() userSchemaDto: UserSchemaDto) {
+    const response = await this.authService.updateUser(userSchemaDto);
     return response;
   }
 }

@@ -5,8 +5,14 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { ObjectId } from 'mongoose';
 
 export class UserSchemaDto {
+  constructor(email, password, salt) {
+    this.email = email;
+    this.password = password;
+    this.salt = salt;
+  }
   @IsEmail()
   @IsNotEmpty()
   @MinLength(4)
@@ -19,4 +25,5 @@ export class UserSchemaDto {
   })
   password: string;
   salt?: string;
+  _id?: ObjectId;
 }

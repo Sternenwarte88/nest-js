@@ -1,37 +1,35 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { InjectModel } from '@nestjs/mongoose';
 import { PassportStrategy } from '@nestjs/passport';
-import { Model } from 'mongoose';
 import { Strategy } from 'passport-local';
-import { DatabaseService } from '../../database/database.service';
-import { User, UserDocument } from '../schema/user.schema';
+import { AuthDatabaseService } from '../../auth_database/auth_database.service';
+import { UserSchemaDto } from '../dto/user-schema.dto';
 
 @Injectable()
 export class AuthStrategy extends PassportStrategy(Strategy) {
   constructor(
-    @Inject(DatabaseService) private databaseService: DatabaseService,
-    @InjectModel(User.name) private userModel: Model<UserDocument>,
+    @Inject(AuthDatabaseService)
+    private authdatabaseService: AuthDatabaseService,
     private JWTService: JwtService,
   ) {
     super({ usernameField: 'email', passwordField: 'password' });
   }
 
-  validateUser = async (email: string, pass: string) => {
-    const user = await this.userModel.findOne({ email: email });
-    const hashedPassword = await this.databaseService.hashPassword(
-      pass,
+  validateUser = async (userSchemaDto: UserSchemaDto) => {
+    const user = await await this.authdatabaseService.findUser(userSchemaDto);
+    const hashedPassword = await this.authdatabaseService.hashPassword(
+      user.
       user.salt,
     );
     if (user && user.password === hashedPassword) {
       const strippedResult = { email: user.email, _id: user._id };
       return strippedResult;
+      return null;
     }
-    return null;
   };
 
-  validate = async (email: string, password: string) => {
-    const result = await this.validateUser(email, password);
+  validate = async (userSchemaDto: UserSchemaDto) => {
+    const result = await this.validateUser(userSchemaDto);
 
     if (!result) {
       throw new BadRequestException();

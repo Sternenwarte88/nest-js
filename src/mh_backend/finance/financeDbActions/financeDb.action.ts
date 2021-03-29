@@ -1,6 +1,6 @@
 import { ObjectId } from 'bson';
 import { Model } from 'mongoose';
-import { UserDocument } from '../../../main_backend/auth/schema/user.schema';
+import { UserDocument } from '../../../database/entities/database.entity';
 import { BaseFinanceDto, FinanceTransferDto } from '../dto/financeTransfer.dto';
 import { validateFinanceType } from '../enums/financeType.enums';
 
@@ -28,7 +28,7 @@ export const insertFinanceData = async (
   const response = await userModel.updateOne(
     { _id: id },
     {
-      $push: {
+      push: {
         [financeType]: {
           _id: new ObjectId(),
           description: description,

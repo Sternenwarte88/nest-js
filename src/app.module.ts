@@ -4,10 +4,16 @@ import { Module } from '@nestjs/common';
 import { DevLabsController } from './dev-labs/dev-labs.controller';
 import { DevLabsService } from './dev-labs/dev-labs.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { mongooseConfig } from './main_backend/config/mongoose.config';
+import { mongooseConfig } from './config/mongoose.config';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
-  imports: [FinanceModule, AuthModule, MongooseModule.forRoot(mongooseConfig)],
+  imports: [
+    FinanceModule,
+    AuthModule,
+    MongooseModule.forRoot(mongooseConfig),
+    DatabaseModule,
+  ],
   controllers: [DevLabsController],
   providers: [DevLabsService],
 })

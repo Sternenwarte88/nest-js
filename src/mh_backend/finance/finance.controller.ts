@@ -7,26 +7,26 @@ import { FinanceService } from './finance.service';
 export class FinanceController {
   constructor(private financeService: FinanceService) {}
 
-  @UseGuards(JwtAuthGuard)
-  @Get('getFinance')
-  async getFinanceData(@Body() baseFinanceDto: BaseFinanceDto) {
-    const response = await this.financeService.getFinanceData(baseFinanceDto);
-    return response;
-  }
-  @UseGuards(JwtAuthGuard)
-  @Post('insertFinance')
-  async insertFinanceData(@Body() financeTransferDto: FinanceTransferDto) {
-    const response = await this.financeService.insertFinanceData(
-      financeTransferDto,
-    );
-    return response;
-  }
-  @UseGuards(JwtAuthGuard)
-  @Delete('deleteFinanceData')
-  async deleteFinanceData(@Body() baseFinanceDto: BaseFinanceDto) {
-    const response = await this.financeService.deleteFinanceData(
-      baseFinanceDto,
-    );
-    return response;
-  }
+  // @UseGuards(JwtAuthGuard)
+  // @Get('getFinance')
+  // async getFinanceData(@Body() baseFinanceDto: BaseFinanceDto) {
+  //   const response = await this.financeService.getFinanceData(baseFinanceDto);
+  //   return response;
+  // }
+  // @UseGuards(JwtAuthGuard)
+  // @Post('insertFinance')
+  // async insertFinanceData(@Body() financeTransferDto: FinanceTransferDto) {
+  //   const response = await this.financeService.insertFinanceData(
+  //     financeTransferDto,
+  //   );
+  //   return response;
+  // }
+  // @UseGuards(JwtAuthGuard)
+  // @Delete('deleteFinanceData')
+  // async deleteFinanceData(@Body() baseFinanceDto: BaseFinanceDto) {
+  //   const response = await this.financeService.deleteFinanceData(
+  //     baseFinanceDto,
+  //   );
+  //   return response;
+  // }
 }

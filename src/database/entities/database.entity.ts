@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { FinanceTransferDto } from 'src/mh_backend/finance/dto/financeTransfer.dto';
+import { FinanceTransferDto } from '../../mh_backend/finance/dto/financeTransfer.dto';
 
 export type UserDocument = Document & User;
 
