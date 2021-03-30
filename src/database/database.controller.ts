@@ -1,4 +1,5 @@
 import { Controller, PreconditionFailedException } from '@nestjs/common';
+import { ObjectId } from 'mongoose';
 import { UserSchemaDto } from '../main_backend/auth/dto/user-schema.dto';
 import { DatabaseService } from './database.service';
 import { CreateDatabaseDto } from './dto/create-database.dto';
@@ -25,7 +26,7 @@ export class DatabaseController {
     return await this.databaseService.update(updateDatabaseDto);
   }
 
-  async remove(id: string) {
-    return await this.databaseService.remove(+id);
+  async remove(id: ObjectId) {
+    return await this.databaseService.remove(id);
   }
 }

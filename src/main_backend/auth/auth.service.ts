@@ -25,4 +25,9 @@ export class AuthService {
     const response = this.authDatabaseService.updateUser(userSchemaDto);
     return response;
   }
+
+  async deleteUser(userSchemaDto: UserSchemaDto) {
+    const response = await this.authDatabaseService.deleteUser(userSchemaDto);
+    return response;
+  }
 }

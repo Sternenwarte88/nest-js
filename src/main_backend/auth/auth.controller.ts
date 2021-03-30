@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   ImATeapotException,
   Patch,
   Post,
@@ -10,7 +11,7 @@ import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './authGuard/jwt.guard';
 import { UserSchemaDto } from './dto/user-schema.dto';
 
-@Controller('/mh_backend')
+@Controller('main/auth/')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
@@ -34,6 +35,13 @@ export class AuthController {
   @Patch('patch')
   async updateUser(@Body() userSchemaDto: UserSchemaDto) {
     const response = await this.authService.updateUser(userSchemaDto);
+    return response;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete('delete')
+  async deleteUser(@Body() userSchemaDto: UserSchemaDto) {
+    const response = await this.authService.deleteUser(userSchemaDto);
     return response;
   }
 }

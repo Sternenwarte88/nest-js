@@ -34,4 +34,11 @@ export class AuthDatabaseController {
       throw new NotAcceptableException();
     }
   };
+
+  updateUser = () => {};
+
+  deleteUser = async (userSchemaDto) => {
+    const response = await this.authDatabaseService.deleteUser(userSchemaDto);
+    return response;
+  };
 }

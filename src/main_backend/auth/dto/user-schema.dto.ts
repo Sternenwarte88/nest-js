@@ -1,3 +1,4 @@
+import { ObjectID } from 'bson';
 import {
   IsEmail,
   IsNotEmpty,
@@ -25,5 +26,5 @@ export class UserSchemaDto {
   })
   password: string;
   salt?: string;
-  _id?: ObjectId;
+  _id?: ObjectID;
 }

@@ -15,6 +15,8 @@ import {
 } from '../../../../database/entities/database.entity';
 import { AuthDatabaseService } from '../../../auth_database/auth_database.service';
 import { DatabaseModule } from '../../../../database/database.module';
+import { ObjectId } from 'bson';
+import { ObjectID } from 'bson';
 
 describe('Authentification Database actions testsuite', () => {
   let authDatabaseController: AuthDatabaseController;
@@ -101,5 +103,12 @@ describe('Authentification Database actions testsuite', () => {
     await expect(async () => {
       await authDatabaseController.createUser(mockedUser);
     }).rejects.toThrow();
+  });
+
+  test('user should delete', async () => {
+    const createdUser = await authDatabaseController.createUser(mockUser);
+    mockUser._id = createdUser._id;
+    const deletedUser = await authDatabaseController.deleteUser(mockUser);
+    expect(deletedUser).toEqual({ n: 1, ok: 1, deletedCount: 1 });
   });
 });

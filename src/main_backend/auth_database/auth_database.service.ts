@@ -3,6 +3,7 @@ import {
   ImATeapotException,
   Inject,
   Injectable,
+  PreconditionFailedException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { DatabaseService } from '../../database/database.service';
@@ -35,7 +36,6 @@ export class AuthDatabaseService {
   }
 
   async findUser(userSchemaDto: UserSchemaDto) {
-    console.log(userSchemaDto);
     try {
       const foundUser = await this.dataBaseService.findOne(userSchemaDto);
       return await foundUser;
@@ -53,6 +53,16 @@ export class AuthDatabaseService {
 
     const response = await this.dataBaseService.update(updateDatabaseDto);
     return response;
+  }
+
+  async deleteUser(userSchemaDto: UserSchemaDto) {
+    try {
+      const id = userSchemaDto._id;
+      const response = await this.dataBaseService.remove(id);
+      return response;
+    } catch (err) {
+      throw new PreconditionFailedException();
+    }
   }
 
   hashPassword = async (userSchemaDto: UserSchemaDto) => {
