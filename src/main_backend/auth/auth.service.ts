@@ -10,7 +10,7 @@ export class AuthService {
     private authDatabaseService: AuthDatabaseService,
     @Inject(AuthStrategy) private authStrategy: AuthStrategy,
   ) {}
-  
+
   async createUser(userSchemaDto: UserSchemaDto) {
     const response = await this.authDatabaseService.createUser(userSchemaDto);
     return response;

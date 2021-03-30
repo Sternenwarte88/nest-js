@@ -15,7 +15,6 @@ import {
 } from '../../../../database/entities/database.entity';
 import { AuthDatabaseService } from '../../../auth_database/auth_database.service';
 import { DatabaseModule } from '../../../../database/database.module';
-import { Document } from 'mongoose';
 
 describe('Authentification Database actions testsuite', () => {
   let authDatabaseController: AuthDatabaseController;

@@ -46,7 +46,8 @@
     "passport-local": "^1.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^6.6.7"
+    "rxjs": "^6.6.7",
+    "typescript": "^4.2.3"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.5.6",
@@ -69,8 +70,7 @@
     "ts-jest": "26.5.4",
     "ts-loader": "^8.1.0",
     "ts-node": "^9.1.1",
-    "tsconfig-paths": "^3.9.0",
-    "typescript": "^4.3.0-dev.20210329"
+    "tsconfig-paths": "^3.9.0"
   },
   "config": {
     "mongodbMemoryServer": {
