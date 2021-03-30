@@ -15,11 +15,12 @@ import {
 } from '../../../../database/entities/database.entity';
 import { AuthDatabaseService } from '../../../auth_database/auth_database.service';
 import { DatabaseModule } from '../../../../database/database.module';
+import { Document } from 'mongoose';
 
 describe('Authentification Database actions testsuite', () => {
   let authDatabaseController: AuthDatabaseController;
   let authDatabaseService: AuthDatabaseService;
-  let mockUser: UserSchemaDto = {
+  const mockUser: UserSchemaDto = {
     email: 'blabla',
     password: 'blabla',
     salt: undefined,
@@ -82,7 +83,7 @@ describe('Authentification Database actions testsuite', () => {
   test('createUser should resolve', async () => {
     await jest
       .spyOn(authDatabaseService, 'findUser')
-      .mockImplementation(async (mockUser) => await Promise.resolve(''));
+      .mockImplementation(async () => await Promise.resolve(undefined));
 
     const result = await authDatabaseController.createUser(mockUser);
 
@@ -90,16 +91,16 @@ describe('Authentification Database actions testsuite', () => {
   });
 
   test('createUser should fail', async () => {
-    mockUser = {
+    const mockedUser: any = {
       email: 'blabla',
       password: 'blabla',
     };
     await jest
       .spyOn(authDatabaseService, 'findUser')
-      .mockImplementation(async (mockUser) => await Promise.resolve(mockUser));
+      .mockImplementation(async () => await Promise.resolve(mockedUser));
 
     await expect(async () => {
-      await authDatabaseController.createUser(mockUser);
+      await authDatabaseController.createUser(mockedUser);
     }).rejects.toThrow();
   });
 });

@@ -8,11 +8,11 @@ import {
 import { ObjectId } from 'mongoose';
 
 export class UserSchemaDto {
-  constructor(email, password, salt) {
-    this.email = email;
-    this.password = password;
-    this.salt = salt;
-  }
+  // constructor(email, password, salt) {
+  //   this.email = email;
+  //   this.password = password;
+  //   this.salt = salt;
+  // }
   @IsEmail()
   @IsNotEmpty()
   @MinLength(4)

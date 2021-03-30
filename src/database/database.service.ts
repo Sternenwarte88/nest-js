@@ -27,10 +27,9 @@ export class DatabaseService {
   }
 
   async findOne(userSchemaDto: UserSchemaDto) {
+    const email = userSchemaDto.email;
     try {
-      const foundUser = await this.userModel.findOne({
-        userSchemaDto,
-      });
+      const foundUser = await this.userModel.findOne({ email });
       return await foundUser;
     } catch (err) {
       throw new BadRequestException();

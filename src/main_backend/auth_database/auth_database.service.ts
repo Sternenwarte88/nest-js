@@ -16,6 +16,7 @@ export class AuthDatabaseService {
   ) {}
 
   async createUser(userSchemaDto: UserSchemaDto) {
+    const findDuplicate = await this.findUser(userSchemaDto);
     let result;
     userSchemaDto.salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(
@@ -23,7 +24,6 @@ export class AuthDatabaseService {
       userSchemaDto.salt,
     );
     userSchemaDto.password = hashedPassword;
-    const findDuplicate = await this.findUser(userSchemaDto);
 
     if (!findDuplicate) {
       result = await this.dataBaseService.create(userSchemaDto);
@@ -33,10 +33,11 @@ export class AuthDatabaseService {
     }
     return await result;
   }
+
   async findUser(userSchemaDto: UserSchemaDto) {
-    let foundUser;
+    console.log(userSchemaDto);
     try {
-      foundUser = await this.dataBaseService.findOne(userSchemaDto);
+      const foundUser = await this.dataBaseService.findOne(userSchemaDto);
       return await foundUser;
     } catch {
       throw new ImATeapotException();
@@ -55,11 +56,10 @@ export class AuthDatabaseService {
   }
 
   hashPassword = async (userSchemaDto: UserSchemaDto) => {
+    console.log('hash: ', userSchemaDto);
+    const { password, salt } = userSchemaDto;
     try {
-      const hashedPassword = await bcrypt.hash(
-        userSchemaDto.password,
-        userSchemaDto.salt,
-      );
+      const hashedPassword = await bcrypt.hash(password, salt);
       return hashedPassword;
     } catch (error) {
       throw new Error(error);

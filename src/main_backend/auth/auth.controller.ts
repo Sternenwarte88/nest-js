@@ -21,16 +21,16 @@ export class AuthController {
     const response = await this.authService.createUser(userSchemaDto);
     return response;
   }
-  @UseGuards(LocalAuthGuard)
+  // @UseGuards(LocalAuthGuard)
   @Post('login')
   async logIn(@Body() userSchemaDto: UserSchemaDto) {
-    let response;
+    console.log('controller', userSchemaDto);
     try {
-      response = await this.authService.loginUser(userSchemaDto);
+      const response = await this.authService.loginUser(userSchemaDto);
+      return response;
     } catch (err) {
       throw new ImATeapotException();
     }
-    return response;
   }
 
   @UseGuards(JwtAuthGuard)
